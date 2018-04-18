@@ -5,4 +5,4 @@ Insert an integer at the center index of an array and return the array, without 
 Create a function that inserts an integer at the center index of an array and return the array, without the use of built-in array methods.
 
 ## Solution
-![](/assets/shift-array.jpg);
+![](./assets/shift-array.jpg)
