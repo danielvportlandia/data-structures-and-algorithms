@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
     "test": "eslint . && jest --coverage"
   },
   "keywords": [],
