@@ -2,7 +2,7 @@
 
 let preOrderStr = '';
 const preOrderTraversal = (rootNode) => {
-  // left - root - right=
+  // left - root - right
   if (!rootNode) {
     return undefined;
   }
