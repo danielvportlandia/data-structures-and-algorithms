@@ -19,15 +19,15 @@ describe('queue-with-stacks.test.js', () => {
     });
     const deqTest = new Queue();
     deqTest.enqueue(5);
-    test('#dequeue, should return first item entered into the queue.', () => {
-      console.log('before', deqTest);
-      expect(deqTest.dequeue()).toEqual(5);
-    });
-    test('#dequeue, should keep track of stackA head value.', () => {
-      expect(testQ.stackA.head.value).toEqual(25);
-    });
-    test('#dequeue, should keep track of queue size.', () => {
-      expect(testQ.size).toEqual(2);
-    });
+    // test('#dequeue, should return first item entered into the queue.', () => {
+    //   console.log('before', deqTest);
+    //   expect(deqTest.dequeue()).toEqual(5);
+    // });
+    // test('#dequeue, should keep track of stackA head value.', () => {
+    //   expect(testQ.stackA.head.value).toEqual(25);
+    // });
+    // test('#dequeue, should keep track of queue size.', () => {
+    //   expect(testQ.size).toEqual(2);
+    // });
   });
 });
