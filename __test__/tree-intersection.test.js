@@ -40,11 +40,12 @@ describe('tree-intersection.test.js', () => {
       expect(typeof test1).toEqual('object');
       expect(testArray).toEqual([2, 5, 6]);
     });
-    test('Should throw new Error if one of the inputs is invalid.', () => {
+    test('Should throw an error if one of the inputs is invalid.', () => {
       expect(() => treeIntersection(123456, btTwo)).toThrowError('Invalid input(s).');
     });
-    // test('Should traverse the tree in an "in-order" fashinon.', () => {
-    //   expect(fizzBuzzTree(fbTree)).toEqual('1,Fizz,Fizz,Buzz,Buzz,2,FizzBuzz');
-    // });
+    test('Should throw an error if at least one of the inputs is an empty tree.', () => {
+      const emptyTree = new BinaryTree();
+      expect(() => treeIntersection(emptyTree, btTwo)).toThrowError('Inputs cannot be empty binary trees.');
+    });
   });
 });

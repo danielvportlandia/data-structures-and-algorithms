@@ -29,6 +29,9 @@ const treeIntersection = (bt1, bt2) => {
   if (typeof bt1 !== 'object' || typeof bt2 !== 'object') {
     throw new Error('Invalid input(s).');
   }
+  if (!bt1.root || !bt2.root) {
+    throw new Error('Inputs cannot be empty binary trees.');
+  }
   const currentNode = bt1.root;
   const currentNode2 = bt2.root;
   insertionTraversal(currentNode);
