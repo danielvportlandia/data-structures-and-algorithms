@@ -1,23 +1,26 @@
 'use strict';
 
-const testString = 'The quick brown fox jumped over the lazy dog. The lazy dog, peeved to be labeled lazy, jumped over a snoring turtle. In retaliation the quick brown fox jumped over ten snoring turtles. Then the quick brown fox refueled with some icecream.';
-
-// const dictionarySorter = (a, b) => {
-//   return a[1] - b[1];
-// };
-
-// const mapCounter = (map, [key, value]) => {
-//   if (map.get(key)) {
-//     [key]: [value + 1];
-//   }
-// };
+/* helper function that sorts dictionaries by each index's second 
+index, highest-to-lowest and accounts for multiple-digit integers. */
+const dictionarySorter = (index) => {
+  return function indexSorter(a, b) {
+    if (a[index] === b[index]) {
+      return 0;
+    }
+    return (b[index] < a[index]) ? -1 : 1;
+  };
+};
 
 const phraseCounter = (str) => {
-  // const dictionary = [];
+  if (typeof str !== 'string') {
+    throw new Error('Invalid data-type, input must be a string.');
+  }
+
+  const phraseArray = [];
+  const dictionary = [];
   const phraseMap = new Map();
   const sentences = str.toLowerCase().split(/\.|\?|!/);
   let wordCounter = 3;
-  console.log(sentences);
 
   /* The following for-loop is breaking each sentence down into an array of words and 
   removing the empty strings (if any exist). String subsets of the sentence 
@@ -27,7 +30,7 @@ const phraseCounter = (str) => {
   words left in the sentence.
   */
   for (let i = 0; i < sentences.length; i++) {
-    const words = sentences[i].split(' ').filter(x => x);
+    const words = sentences[i].replace(/,|\(|\)|"|;|:/g, '').split(' ').filter(x => x);
 
     while (words.length > 2) {
       wordCounter = 3;
@@ -54,8 +57,53 @@ const phraseCounter = (str) => {
       words.shift();
     }
   }
+  
+  // The first forEach method removes previous keys where the current key contains the subset.
+  let previousKey = null;
+  phraseMap.forEach((value, key) => {
+    if (value === 1) {
+      return phraseMap.delete(key);
+    }
+    if (previousKey) {
+      if (key.includes(previousKey)) {
+        phraseMap.delete(previousKey);
+      }
+    }
+    previousKey = key;
+    return this;
+  });
 
-  console.log(phraseMap);
+  // The second forEach method removes keys where the previous key contains the subset.
+  previousKey = null;
+  phraseMap.forEach((value, key) => {
+    if (previousKey) {
+      if (previousKey.includes(key)) {
+        phraseMap.delete(key);
+      }
+    }
+    previousKey = key;
+  });
+
+  // Populates dictionary
+  phraseMap.forEach((value, key) => {
+    dictionary.push([key, value]);
+  });
+
+  dictionary.sort(dictionarySorter(1));
+
+  /* This for-loop formats each index of the dictionary to be [phrase, occurances] 
+  and trims whitespace off the phrase before populating the array of phrases with 
+  up to a max of 10 phrases. */
+  for (let i = 0; i < dictionary.length && i < 10; i++) {
+    if (typeof dictionary[i][0] === 'number') {
+      const temp = dictionary[i][0];
+      dictionary[i][0] = dictionary[i][0 + 1];
+      dictionary[i][1] = temp;
+    }
+    phraseArray.push(dictionary[i][0].trim());
+  }
+
+  return phraseArray;
 };
 
-console.log(phraseCounter(testString));
+export default phraseCounter;
