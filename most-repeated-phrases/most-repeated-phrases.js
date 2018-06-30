@@ -90,19 +90,13 @@ const phraseCounter = (str) => {
   });
 
   dictionary.sort(dictionarySorter(1));
-
-  /* This for-loop formats each index of the dictionary to be [phrase, occurances] 
-  and trims whitespace off the phrase before populating the array of phrases with 
-  up to a max of 10 phrases. */
+  
+  /* This for-loop trims whitespace off the phrase before populating the array of phrases with 
+  up to a max of 10 phrases total. */
   for (let i = 0; i < dictionary.length && i < 10; i++) {
-    if (typeof dictionary[i][0] === 'number') {
-      const temp = dictionary[i][0];
-      dictionary[i][0] = dictionary[i][0 + 1];
-      dictionary[i][1] = temp;
-    }
     phraseArray.push(dictionary[i][0].trim());
   }
-
+  
   return phraseArray;
 };
 
